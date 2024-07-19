@@ -13,8 +13,8 @@ export const sendOTPEmail = async (email, otp) => {
     Messages: [
       {
         From: {
-          Email: 'your-email@example.com',
-          Name: 'Your Name',
+          Email: 'snsknarayana@gmail.com',
+          Name: 'Sanjeewa Narayana',
         },
         To: [
           {
@@ -36,8 +36,8 @@ export const sendConfirmationEmail = async (email) => {
     Messages: [
       {
         From: {
-          Email: 'your-email@example.com',
-          Name: 'Your Name',
+          Email: 'snsknarayana@gmail.com',
+          Name: 'Sanjeewa Narayana',
         },
         To: [
           {

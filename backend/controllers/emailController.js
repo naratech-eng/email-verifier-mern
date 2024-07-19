@@ -1,11 +1,11 @@
 import crypto from 'crypto';
 import User from '../models/User.js';
-import { sendOTPEmail, sendConfirmationEmail } from '../utils/sendEmail.js';
+import { sendOTPEmail, sendConfirmationEmail, sendFormData } from '../utils/sendEmail.js';
 
 export const sendOTP = async (req, res) => {
   const { email } = req.body;
   const otp = crypto.randomBytes(3).toString('hex');
-  const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
+  const otpExpiry = new Date(Date.now() + 5 * 60 * 1000); 
 
   try {
     await User.findOneAndUpdate(
@@ -35,3 +35,14 @@ export const verifyOTP = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+// 
+export const submitProtectedForm = async (req, res) => {
+    const { email, formData } = req.body;
+  
+    try {
+      await sendFormData(email, formData);
+      res.status(200).json({ message: 'Form submitted successfully and email sent!' });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };

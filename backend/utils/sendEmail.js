@@ -53,3 +53,32 @@ export const sendConfirmationEmail = async (email) => {
 
   await request;
 };
+
+export const sendFormData = async (email, formData) => {
+
+    const request = mailjet.post('send', { version: 'v3.1' }).request({
+        Messages: [
+          {
+            From: {
+              Email: 'snsknarayana@gmail.com',
+              Name: 'Sanjeewa Narayana',
+            },
+            To: [
+              {
+                Email: email,
+                Name: 'Recipient Name',
+              },
+            ],
+            Subject: 'Your Requested Data',
+            TextPart: 'Your form submission is attached as a JSON file.',
+            Attachments: [
+              {
+                ContentType: 'application/json',
+                Filename: 'formData.json',
+                Base64Content: Buffer.from(JSON.stringify(formData)).toString('base64'),
+              },
+            ],
+          },
+        ],
+      });
+}
